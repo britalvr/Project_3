@@ -26,11 +26,10 @@ Base.prepare(db.engine,reflect=True)
 
 
 
-Happiness_2015 = Base.classes.happiness_2015
-Happiness_2016 = Base.classes.happiness_2016
-Happiness_2017 = Base.classes.happiness_2017
+Happy_2015 = Base.classes.happiness_2015
+Happy_2016 = Base.classes.happiness_2016
+Happy_2017 = Base.classes.happiness_2017
 Countries = Base.classes.countries
-
 
 
 
@@ -70,33 +69,33 @@ def countries():
 
 
 @app.route("/<year>")
-def countries_happiness_year(year):
+def countries_happy_year(year):
 	years ={
-	'2015': Happiness_2015,
-	'2016': Happiness_2016,
-	'2017': Happiness_2017,
+	'2015': Happy_2015,
+	'2016': Happy_2016,
+	'2017': Happy_2017,
 	}
 
 
-	Happiness_year = years.get(year)
+	Happy_year = years.get(year)
 
 
 	year_sel = [
-		Happiness_year.country_id,
-		Happiness_year.Country,
-		Happiness_year.HappinessRank,
-		Happiness_year.HappinessScore,
-		Happiness_year.Economy_GDPperCapita,
-		Happiness_year.Family,
-		Happiness_year.Health_LifeExpectancy,
-		Happiness_year.Freedom,
-		Happiness_year.Trust_GovernmentCorruption,
-		Happiness_year.Generosity,
-		Happiness_year.DystopiaResidual,
-		Happiness_year.Code,
-		Happiness_year.Latitude,
-		Happiness_year.Longitude,
-		Happiness_year.Region,
+		Happy_year.country_id,
+		Happy_year.Country,
+		Happy_year.HappinessRank,
+		Happy_year.HappinessScore,
+		Happy_year.Economy_GDPperCapita,
+		Happy_year.Family,
+		Happy_year.Health_LifeExpectancy,
+		Happy_year.Freedom,
+		Happy_year.Trust_GovernmentCorruption,
+		Happy_year.Generosity,
+		Happy_year.DystopiaResidual,
+		Happy_year.Code,
+		Happy_year.Latitude,
+		Happy_year.Longitude,
+		Happy_year.Region,
 	]
 
 
@@ -106,118 +105,119 @@ def countries_happiness_year(year):
 
 
 
-	happiness_year_data_list = []
+	happy_year_data_list = []
 
 
 	for result in year_results:
 
-		happiness_year_data = {}
-		happiness_year_data['Country']= result[1]
-		happiness_year_data['Code'] = result[11]
-		happiness_year_data['Region'] = result[14]
-		happiness_year_data['country_id'] = result[0]
-		happiness_year_data['HappinessRank'] = result[2]
-		happiness_year_data['HappinessScore'] = result[3]
-		happiness_year_data['Economy_GDPperCapita'] = result[4]
-		happiness_year_data['Family'] = result[5]
-		happiness_year_data['Health_LifeExpectancy'] = result[6]
-		happiness_year_data['Freedom'] = result[7]
-		happiness_year_data['Trust_GovernmentCorruption'] = result[8]
-		happiness_year_data['Generosity'] = result[9]
-		happiness_year_data['DystopiaResidual'] = result[10]
-		happiness_year_data['Latitude'] = result[12]
-		happiness_year_data['Longitude'] = result[13]
-		happiness_year_data_list.append(happiness_year_data)
+		happy_year_data = {}
+
+		happy_year_data['Country']= result[1]
+		happy_year_data['Code'] = result[11]
+		happy_year_data['Region'] = result[14]
+		happy_year_data['country_id'] = result[0]
+		happy_year_data['HappinessRank'] = result[2]
+		happy_year_data['HappinessScore'] = result[3]
+		happy_year_data['Economy_GDPperCapita'] = result[4]
+		happy_year_data['Family'] = result[5]
+		happy_year_data['Health_LifeExpectancy'] = result[6]
+		happy_year_data['Freedom'] = result[7]
+		happy_year_data['Trust_GovernmentCorruption'] = result[8]
+		happy_year_data['Generosity'] = result[9]
+		happy_year_data['DystopiaResidual'] = result[10]
+		happy_year_data['Latitude'] = result[12]
+		happy_year_data['Longitude'] = result[13]
+		happy_year_data_list.append(happy_year_data)
 	
 	
-	return jsonify(happiness_year_data_list)
+	return jsonify(happy_year_data_list)
 
 
 
 
 
 @app.route("/<year>/<country>")
-def countries_happiness(year,country):
+def countries_happy(year,country):
 	years ={
-	'2015': Happiness_2015,
-	'2016': Happiness_2016,
-	'2017': Happiness_2017,
+	'2015': Happy_2015,
+	'2016': Happy_2016,
+	'2017': Happy_2017,
 	}
 
 
-	Happiness_year = years.get(year)
+	Happy_year = years.get(year)
 
 
 
 	sel = [
-		Happiness_year.country_id,
-		Happiness_year.Country,
-		Happiness_year.HappinessRank,
-		Happiness_year.HappinessScore,
-		Happiness_year.Economy_GDPperCapita,
-		Happiness_year.Family,
-		Happiness_year.Health_LifeExpectancy,
-		Happiness_year.Freedom,
-		Happiness_year.Trust_GovernmentCorruption,
-		Happiness_year.Generosity,
-		Happiness_year.DystopiaResidual,
-		Happiness_year.Code,
-		Happiness_year.Latitude,
-		Happiness_year.Longitude,
+		Happy_year.country_id,
+		Happy_year.Country,
+		Happy_year.HappinessRank,
+		Happy_year.HappinessScore,
+		Happy_year.Economy_GDPperCapita,
+		Happy_year.Family,
+		Happy_year.Health_LifeExpectancy,
+		Happy_year.Freedom,
+		Happy_year.Trust_GovernmentCorruption,
+		Happy_year.Generosity,
+		Happy_year.DystopiaResidual,
+		Happy_year.Code,
+		Happy_year.Latitude,
+		Happy_year.Longitude,
 	]
 
 
 
-	results = db.session.query(*sel).filter(Happiness_year.Country == country).all()
+	results = db.session.query(*sel).filter(Happy_year.Country == country).all()
 
 
 
-	happiness_data = {}
+	happy_data = {}
 
 
 	for result in results:
 
-		happiness_data['year'] = year
-		happiness_data['country_id'] = result[0]
-		happiness_data['Country'] = result[1]
-		happiness_data['Code'] = result[11]
-		happiness_data['HappinessRank'] = result[2]
-		happiness_data['HappinessScore'] = result[3]
-		happiness_data['Economy_GDPperCapita'] = result[4]
-		happiness_data['Family'] = result[5]
-		happiness_data['Health_LifeExpectancy'] = result[6]
-		happiness_data['Freedom'] = result[7]
-		happiness_data['Trust_GovernmentCorruption'] = result[8]
-		happiness_data['Generosity'] = result[9]
-		happiness_data['DystopiaResidual'] = result[10]
-		happiness_data['Latitude'] = result[12]
-		happiness_data['Longitude'] = result[13]
+		happy_data['year'] = year
+		happy_data['country_id'] = result[0]
+		happy_data['Country'] = result[1]
+		happy_data['Code'] = result[11]
+		happy_data['HappinessRank'] = result[2]
+		happy_data['HappinessScore'] = result[3]
+		happy_data['Economy_GDPperCapita'] = result[4]
+		happy_data['Family'] = result[5]
+		happy_data['Health_LifeExpectancy'] = result[6]
+		happy_data['Freedom'] = result[7]
+		happy_data['Trust_GovernmentCorruption'] = result[8]
+		happy_data['Generosity'] = result[9]
+		happy_data['DystopiaResidual'] = result[10]
+		happy_data['Latitude'] = result[12]
+		happy_data['Longitude'] = result[13]
 
 
-	return jsonify(happiness_data)
+	return jsonify(happy_data)
 
 
 
 
 
 @app.route("/region/<year>")
-def region_happiness(year):
+def region_happy(year):
 	years ={
-	'2015': Happiness_2015,
-	'2016': Happiness_2016,
-	'2017': Happiness_2017,
+	'2015': Happy_2015,
+	'2016': Happy_2016,
+	'2017': Happy_2017,
 	}
 
 
-	Happiness_year = years.get(year)
+	Happy_year = years.get(year)
 
 
 
 	avg_region_results = db.session.query(
-		func.avg(Happiness_year.HappinessScore),
-		Happiness_year.Region
+		func.avg(Happy_year.HappinessScore),
+		Happy_year.Region
 		).group_by(
-		Happiness_year.Region
+		Happy_year.Region
 		).all()
 
 
