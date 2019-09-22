@@ -23,7 +23,7 @@
   <link href="https://cdn.anychart.com/releases/8.4.0/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.anychart.com/releases/8.4.0/fonts/css/anychart-font.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed" rel="stylesheet">
-  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
 </head>
 
@@ -176,8 +176,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="/static/js/app.js"></script>
-  <script src="/static/js/globe.js"></script>
+  <!-- <script src="/static/js/app.js"></script>
+  <script src="/static/js/drawGlobe.js"></script> -->
+  <script src="{{ url_for('static', filename='js/drawGauge.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/drawGlobe.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/drawTable.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   
 
 </body>

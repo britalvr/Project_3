@@ -2,7 +2,11 @@ function roundNumber(num) {
     return (Math.round(num*100000)/100000);
 }
 
+
+
 var y1,y2,y3;
+
+
 
 function buildPanel() {
 d3.json(`/${year}/${country}`).then( data => {
@@ -11,11 +15,15 @@ d3.json(`/${year}/${country}`).then( data => {
     });
 };
 
+
+
 function buildCharts() {
 d3.json(`/${year}`).then ( data =>{
   drawGlobe(data);
 })
 };
+
+
 
 function buildScatter(sample) {
 d3.json(`/${year}`).then ( data =>{
@@ -24,8 +32,12 @@ d3.json(`/${year}`).then ( data =>{
 };
 
 
+
 var year = "2015";
+
 var country = "United States";
+
+
 
 function init() {
 
@@ -40,6 +52,8 @@ sampleYears.forEach((sample) => {
 });
 })
 
+
+
 var selectorThree = d3.select('#selDatasetThree');
 d3.json("/countries").then((sampleCountries) =>{
 Object.keys(sampleCountries[0]).forEach((country) =>{
@@ -51,14 +65,18 @@ Object.keys(sampleCountries[0]).forEach((country) =>{
 })
 
 
+
+
 buildPanel()
 drawBar()
 buildScatter()
 drawCloud()
 buildCharts()
 drawLinearGauge()
-
 }
+
+
+
 
 
 function optionChangedOne(newYear) {
@@ -73,10 +91,13 @@ drawCloud();
 drawLinearGauge();
 }
 
+
+
 function optionChangedTwo(newCountry) {
 country = newCountry;
 buildPanel();
 drawBar();
 }
+
 
 init();
