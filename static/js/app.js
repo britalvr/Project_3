@@ -54,7 +54,7 @@ sampleYears.forEach((sample) => {
 
 
 
-var selectorThree = d3.select('#selDatasetThree');
+var selectorThree = d3.select("#selDatasetThree");
 d3.json("/countries").then((sampleCountries) =>{
 Object.keys(sampleCountries[0]).forEach((country) =>{
     selectorThree

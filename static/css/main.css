@@ -1,7 +1,7 @@
 body{
     padding: 0px;
     margin: 0px;
-    font-family: 'Barlow Condensed' , sans-serif;
+    font-family: "Barlow Condensed" , "sans-serif";
   }
   
   .header-text {
@@ -14,7 +14,7 @@ body{
   }
   
   .banner {
-      background-image: url('star-field.png');
+      background-image: url("star-field.png");
       min-height: 750px;
       margin-top: 40px;
   }
@@ -80,13 +80,13 @@ body{
   }
   
   .aText {
-    font-family: 'Barlow Condensed',sans-serif;
+    font-family: "Barlow Condensed",sans-serif;
     font-size: 18px;
     text-anchor: middle;
   }
   
   .axis-text-main{
-    font-family: 'Barlow Condensed',sans-serif;
+    font-family: "Barlow Condensed",sans-serif;
     text-anchor: middle;
     font-size: 0.75em;
   }
