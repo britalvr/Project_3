@@ -26,10 +26,10 @@ body {
     width: 100%;
     font-family: 'Spectral', serif;
     font-size: 1em;
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;         /* Opera/IE 8+ */
-    background-color: var(--main-bg-color);
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box;   
+    box-sizing: border-box;         
+    /* background-color: var(--main-bg-color);
     background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
     background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
     background-image: -webkit-linear-gradient(white 2px, transparent 2px),
@@ -49,7 +49,7 @@ body {
                      linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px) -1px -1px / 20px,
                      linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px) -1px -1px / 20px,
                      #269;
-    behavior: url(/pie/PIE.htc);
+    behavior: url(/pie/PIE.htc); */
 }
 
 .banner {
