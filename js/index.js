@@ -1,4 +1,7 @@
+
 //styles
+
+
 var metricButtonTextColor = "black";
 var metricButtonBackgroundColor = "#FFFFFF";
 var scatterPointColor = "black";
@@ -17,8 +20,11 @@ var buttonDefaultAlpha = ".35";
 var buttonHoverAlpha = "0.8";
 var buttonPressedAlpha = "1.0";
 
+
 var buttonBoxHeight = 68;
 var showRadarMultiple = false;
+
+
 
 var bWidth= 50; 
 var bHeight= 50; 
@@ -27,16 +33,22 @@ var x0= 0;
 var y0= 0;
 
 
+
+
 var radarWidth = 380;
 var radarHeight = 380;
 var radarMargin = {top: 60, right: 60, bottom: 5, left: 65},
     width = Math.min(radarWidth, window.innerWidth - 10) - radarMargin.left - radarMargin.right,
     height = Math.min(radarHeight, window.innerHeight - radarMargin.top - radarMargin.bottom - 20);
 
+
+
 var selectedRadarIds = [];
 var radarCountryId = [];
 var radarColor = [];
 var radarData = [];            
+
+
 
 var radarChartOptions = {
     w: radarWidth,
@@ -54,9 +66,15 @@ var radarChartOptions = {
     color: radarColor
     };
 
+
+
+
+
 //scatter plot scale
 var mapDomainStart = 0.0;
 var mapDomainEnd = 1.0;
+
+
 
 var colorScale = d3.scale.linear()
     .domain([mapDomainStart, .2,.4,.6,.8, mapDomainEnd])
@@ -68,21 +86,32 @@ var colorScale = d3.scale.linear()
 '#66c2a5',
 '#3288bd']);
 
+
+
+
 var scatterMargin = {top: 15, right: 25, bottom: 35, left: 55};
 var scatterWidth = 520;// - scatterMargin.left - scatterMargin.right;
 var scatterHeight = 520;// - scatterMargin.top - scatterMargin.bottom;
+
+
 
 var xScale = d3.scale.linear()
     .domain([0,1.0])
     .range([scatterMargin.left, scatterWidth - scatterMargin.right]);
 
+
+
 var yScale = d3.scale.linear()
     .domain([mapDomainStart,mapDomainEnd])
     .range([scatterHeight - scatterMargin.bottom, scatterMargin.top]);
 
+
+
 var selectedId = 0;
 var metrics = ['gdp', 'health', 'family', 'freedom', 'generosity', 'trust'];
 var scatterButtonText = ['economic production', 'life expectancy', 'social support', 'freedom', 'generosity', 'absence of corruption'];
+
+
 
 var trendData = [{"family": {"x": 0.03, "y": -0.16114577322807189}, "gdp": {"x": 0.03, "y": 0.13771722698313174}, "freedom": {"x": 0.03, "y": 0.19385022340720828}, "health": {"x": 0.03, "y": 0.1449102798209366}, "generosity": {"x": 0.03, "y": 0.4622831394921143}, "trust": {"x": 0.03, "y": 0.43740109364034913}},{"family": {"x": 0.99, "y": 0.79779990255437661}, "gdp": {"x": 0.99, "y": 0.94724520414798952}, "freedom": {"x": 0.99, "y": 0.77578394648940319}, "health": {"x": 0.99, "y": 0.85635149202827043}, "generosity": {"x": 0.99, "y": 0.78474449144773484}, "trust": {"x": 0.99, "y": 0.90127344573029378}}];
 var app = angular.module("myapp", []);
@@ -101,9 +130,16 @@ app.directive("scoped", function() {
     };
 
 
+
+
+
 function link(scope, element, attrs) {
 
+
+
 function pushRadarData(x, xar) {
+
+
 
     if (x != 0){
         xar.push(x);
@@ -121,11 +157,16 @@ function pushRadarData(x, xar) {
     }
 }
 
+
+
+
 function prepareRadarData(x) {
     radarData = [];
     radarColor = [];
     radarCountryId = [];
     var radarAxisNames = ['happiness', 'economic production', 'life expectancy', 'social support', 'freedom', 'generosity', 'absence of corruption'];
+
+
 
     if (x != 0 ) {
         var radarIds = selectedRadarIds.concat([x]);
@@ -133,6 +174,8 @@ function prepareRadarData(x) {
     else {
         var radarIds = selectedRadarIds.concat([]);
     }
+
+
 
     if (radarIds.length == 0) {
             radarData.push([
@@ -148,8 +191,15 @@ function prepareRadarData(x) {
             radarColor.push("none");
             radarIds.push(0);
     }
+
+
+
+
     else {
+
+
     for (var i in radarIds) {
+
         if (predictionMode == true ) {
             radarData.push([
             {axis: radarAxisNames[0],value: scope.data[radarIds[i]].pred  },
@@ -163,6 +213,9 @@ function prepareRadarData(x) {
             radarCountryId.push((-radarIds[i]));
             radarColor.push("grey");
         }
+
+
+
 
         radarData.push([
             {axis: radarAxisNames[0],value: scope.data[radarIds[i]].happy  },
@@ -180,46 +233,78 @@ function prepareRadarData(x) {
     
 
 
+
 }
+
+
+
 
 
 function radarChart(radarData, radarCountryId, options) {
     // The Radar Chart Function
     //Written by Nadieh idBremer  VisualCinnamon.com
     
+
+
+
+
     d3.select(element[0]).select('.rightDiv').selectAll("svg").remove();
     modeButtons();
 
+
+
+
     var len = 0;
     var cfg = {};
+
+
+
 
     for(var i in options){
         if('undefined' !== typeof options[i]){ cfg[i] = options[i]; }
         }
 
+
+
+
     //If the supplied maxValue is smaller than the actual one, replace by the max in the data
     var maxValue = Math.max(cfg.maxValue, d3.max(radarData, function(i){return d3.max(i.map(function(o){return o.value;}))}));
         
+
+
+
     var allAxis = (radarData[0].map(function(i, j){return i.axis})), //Names of each axis
         total = allAxis.length,                 //The number of different axes
         radius = Math.min(cfg.w/2, cfg.h/2),    //Radius of the outermost circle
         Format = d3.format('%'),                //Percentage formatting
         angleSlice = Math.PI * 2 / total;       //The width in radians of each "slice"
     
+
+
+
     //Scale for the radius
     var rScale = d3.scale.linear()
         .range([0, radius])
         .domain([0, maxValue]);
+
+
+
 
     //Initiate the radar chart SVG
     var radarSvg = d3.select('.rightDiv').append("svg")
         .attr("class", "radarSvg")
         .attr('viewBox', '0, 0, ' + scatterWidth + ', ' + scatterHeight);
 
+
+
+
     //Append a g element        
     var g = radarSvg.append("g")
             .attr("transform", "translate(" + (cfg.w/2 + cfg.margin.left) + "," + (cfg.h/2 + cfg.margin.top) + ")");
     
+
+
+
     //Filter for the outside glow
     var filter = g.append('defs').append('filter').attr('id','glow'),
         feGaussianBlur = filter.append('feGaussianBlur').attr('stdDeviation','2.5').attr('result','coloredBlur'),
@@ -227,9 +312,15 @@ function radarChart(radarData, radarCountryId, options) {
         feMergeNode_1 = feMerge.append('feMergeNode').attr('in','coloredBlur'),
         feMergeNode_2 = feMerge.append('feMergeNode').attr('in','SourceGraphic');
 
+
+
+
     //Wrapper for the grid & axes
     var axisGrid = g.append("g").attr("class", "axisWrapper");
     
+
+
+
     //Draw the background circles
     axisGrid.selectAll(".levels")
        .data(d3.range(1,(cfg.levels+1)).reverse())
@@ -244,6 +335,9 @@ function radarChart(radarData, radarCountryId, options) {
         .style("fill-opacity", cfg.opacityCircles)
         .style("filter" , "url(#glow)");
 
+
+
+
     //Text indicating at what % each level is
     axisGrid.selectAll(".axisLabel")
        .data(d3.range(1,(cfg.levels+1)).reverse())
@@ -255,6 +349,9 @@ function radarChart(radarData, radarCountryId, options) {
        .style("font-size", "10px")
        .attr("fill", "#737373")
        .text(function(d,i) { return Format(maxValue * d/cfg.levels); });
+
+
+
 
     //Create the straight lines radiating outward from the center
     var axis = axisGrid.selectAll(".axis")
@@ -273,6 +370,10 @@ function radarChart(radarData, radarCountryId, options) {
         .style("stroke", "white")
         .style("stroke-width", "2px");
 
+
+
+
+
     //Append the labels at each axis
     axis.append("text")
         .attr("class", "legend")
@@ -284,7 +385,12 @@ function radarChart(radarData, radarCountryId, options) {
         .text(function(d){return d})
         .call(wrap, cfg.wrapWidth);
     
+
+
+
     var radarDuration = 700;
+
+
     //The radial line function
     var radarLine = d3.svg.line.radial()
         .interpolate("linear-closed")
@@ -293,14 +399,21 @@ function radarChart(radarData, radarCountryId, options) {
           //            .transition().duration(radarDuration)
         .angle(function(d,i) {  return i*angleSlice; });
         
+
+
     if(cfg.roundStrokes) {
         radarLine.interpolate("cardinal-closed");
     }
-                
+           
+    
+
     var blobWrapper = g.selectAll(".radarWrapper")
         .data(radarData)
         .enter().append("g")
         .attr("class", "radarWrapper");
+
+
+
 
     //Append the backgrounds    
     blobWrapper.append("path")
@@ -314,6 +427,8 @@ function radarChart(radarData, radarCountryId, options) {
                 return "none";
             } 
        })
+
+
         .style("fill-opacity", cfg.opacityArea)
         .on('mouseover', function (d,i){
             d3.selectAll(".radarArea")
@@ -323,12 +438,17 @@ function radarChart(radarData, radarCountryId, options) {
                 .transition().duration(100)
                 .style("fill-opacity", 0.5);    
         })
+
+
         .on('mouseout', function(){
             d3.selectAll(".radarArea")
                 .transition().duration(1000)
                 .style("fill-opacity", cfg.opacityArea);
         });
         
+
+
+
     //Create the outlines   
     blobWrapper.append("path")
         .attr("class", "radarStroke")
@@ -338,6 +458,9 @@ function radarChart(radarData, radarCountryId, options) {
         .style("stroke", function(d,i) { return radarColor[i]; })
         .style("fill", "none")
         .style("filter" , "url(#glow)");    
+
+
+
 
     //Append the circles
     blobWrapper.selectAll(".radarCircle")
@@ -351,12 +474,18 @@ function radarChart(radarData, radarCountryId, options) {
         .attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); })
         .style("fill-opacity", 0.8);
     
+
+
+
     //Wrapper for the invisible circles on top
     var blobCircleWrapper = g.selectAll(".radarCircleWrapper")
         .data(radarData)
         .enter().append("g")
         .attr("class", "radarCircleWrapper");
         
+
+
+
     //Append a set of invisible circles on top for the mouseover pop-up
     blobCircleWrapper.selectAll(".radarInvisibleCircle")
         .data(function(d,i) { return d; })
@@ -391,10 +520,17 @@ function radarChart(radarData, radarCountryId, options) {
                 .style("opacity", 0);
         });
         
+
+
+
+
     //Set up the small tooltip for when you hover over a circle
     var tooltip = g.append("text")
         .attr("class", "tooltip")
         .style("opacity", 0);
+
+
+
 
     //Taken from http://bl.ocks.org/mbostock/7555321
     //Wraps SVG text    
@@ -411,6 +547,9 @@ function radarChart(radarData, radarCountryId, options) {
             dy = parseFloat(text.attr("dy")),
             tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
             
+
+
+
         while (word = words.pop()) {
           line.push(word);
           tspan.text(line.join(" "));
@@ -422,14 +561,20 @@ function radarChart(radarData, radarCountryId, options) {
             }}
         });}    
     
+
+
+
     // bug: the blob when selectedId = 0 or  = 0 returns error on hover
 
     radarButtons();
     }   
 
 
+
 function modeButtons() {
     var buttonBoxWidth = 250;
+
+
 
     var svg = d3.select(element[0])
         .select(".rightDiv .modeSelectors")
@@ -440,9 +585,18 @@ function modeButtons() {
         .attr("overflow", "visible");
         //.style("align-content", "center");
 
+
+
+
     var toggleButtons = ['scatter', 'radar', 'info', 'reset'];
 
+
+
+
     var toggleText = ['scatter plot', 'radar plot', 'information', 'reset'];
+
+
+
 
     var modeButtons = svg.append("g")
         .attr("id", "modeButtons")
@@ -457,12 +611,18 @@ function modeButtons() {
             .attr("opacity", buttonDefaultAlpha);
             d3.select(this).attr("opacity", buttonPressedAlpha);
 
+
+
+
             if (i == 0) { // scatter
                 d3.selectAll('.rightDiv .infoTextDiv').remove();
                 modeStatus = 0;
                 drawScatter();
                 labelScatterCountry(selectedId, countryFontOpacity)
             }
+
+
+
             if (i == 1 ) { // radar plot
                 d3.selectAll('.rightDiv .infoTextDiv').remove();
                 modeStatus = 1;
@@ -470,6 +630,9 @@ function modeButtons() {
                 prepareRadarData(0)
                 radarChart(radarData, radarCountryId, radarChartOptions);
             }
+
+
+            
             if (i == 2) { // info
                 modeStatus = 2;
                 d3.select('.rightDiv .scatterSvg')
@@ -489,16 +652,20 @@ function modeButtons() {
                 d3.select('.rightDiv')
                     .append('div')
                     .attr('class', 'infoTextDiv')
-                .text("This globe shows the happiness of countries in the world using "+
-                    "Gallup World Poll data. The scatter plot shows the happiness score compared " +
-                    "to one of six measured factors – economic production, social support, life expectancy, " +
-                    "freedom, absence of corruption, and generosity. The radar chart shows all six of the measured factors simultaneously for the selected country. In addition by selectecing the thinking head icon a prediction of the country's happiness based off all of these factors is shown; for most countries the predicted happiness is extremely close to the measured value which indicates that happiness is strongly determined by these indicators.");
+                // .text("This globe shows the happiness of countries in the world using "+
+                //     "Gallup World Poll data. The scatter plot shows the happiness score compared " +
+                //     "to one of six measured factors – economic production, social support, life expectancy, " +
+                //     "freedom, absence of corruption, and generosity. The radar chart shows all six of the measured factors simultaneously for the selected country. In addition by selectecing the thinking head icon a prediction of the country's happiness based off all of these factors is shown; for most countries the predicted happiness is extremely close to the measured value which indicates that happiness is strongly determined by these indicators.");
             }
+
+
             if (i == 3) { // reset
                 window.location.reload();
             }
             
         })
+
+
         .on("mouseover", function(d,i) {
             d3.select("#modeText" + i)
             .style("opacity", 1);
@@ -506,6 +673,8 @@ function modeButtons() {
                 d3.select(this).attr("opacity", buttonHoverAlpha)};
 
         })
+
+
         .on("mouseout", function(){
 
             modeButtons.select('.buttonText')
@@ -515,9 +684,14 @@ function modeButtons() {
             if (d3.select(this).attr("opacity") != buttonPressedAlpha) { 
                 d3.select(this).attr("opacity", buttonDefaultAlpha)};
         })
+
+
         .attr("opacity", function(d,i) { //setting inital opactiy when page is loaded
             if (i == modeStatus) {return buttonPressedAlpha;}
             else {return buttonDefaultAlpha}});
+
+
+
 
     modeButtons.append("text")
         .attr("class","buttonText")
@@ -531,6 +705,8 @@ function modeButtons() {
         .style("opacity", 0)
         .text(function(d, i ) {return toggleText[i];});
 
+
+
     modeButtons.append("svg:image")
         .attr("x", function(d,i) {return x0 + (bWidth + bSpace)*i;})
         .attr("y", y0)
@@ -540,8 +716,12 @@ function modeButtons() {
 }
 
 
+
+
 function radarButtons() {
     var buttonBoxWidth = 200;
+
+
 
     var radarButtonSvg = d3.select(element[0])
         .select('.rightDiv')
@@ -552,8 +732,12 @@ function radarButtons() {
         .attr('viewBox', '0, 0, ' + buttonBoxWidth + ', ' + buttonBoxHeight)
         .attr("overflow", "visible");
 
+
+
     radarButtonImgs = ['guess', 'multiple', 'reset'];
     radarButtonsText = ['show predictions', 'show multiple', 'reset']
+
+
 
     var radarButtons = radarButtonSvg.append("g")
         .attr("id", "radarButtons")
@@ -565,6 +749,7 @@ function radarButtons() {
         .style("cursor", "pointer")
         .on("click", function(d, i) {
 
+
             if (i == 0) {
                 if (predictionMode == false) {
                     predictionMode = true;
@@ -573,6 +758,8 @@ function radarButtons() {
                     prepareRadarData(0)
                     radarChart(radarData, radarCountryId, radarChartOptions);
                 }
+
+
                 else {
                     predictionMode = false;
                     d3.select(this).attr("opacity", buttonDefaultAlpha);
@@ -582,11 +769,14 @@ function radarButtons() {
                 }
             }
 
+
+
             if (i == 1 ) { 
                 if (showRadarMultiple == false) {
                     showRadarMultiple = true;
                     d3.select(this).attr("opacity", buttonPressedAlpha);
                 }
+
                 else {
                     d3.select(this).attr("opacity", buttonDefaultAlpha);
                     showRadarMultiple = false;
@@ -595,12 +785,15 @@ function radarButtons() {
                     radarChart(radarData, radarCountryId, radarChartOptions);
                 }
             }
+
             if (i == 2) {
                 selectedRadarIds = [];
                 prepareRadarData(0)
                 radarChart(radarData, radarCountryId, radarChartOptions);
             }
         })
+
+
         .on("mouseover", function(d,i) {
             d3.select("#radarText" + i)
             .style("opacity", 1);
@@ -609,6 +802,8 @@ function radarButtons() {
                 d3.select(this).attr("opacity", buttonHoverAlpha)};
         
         })
+
+
         .on("mouseout", function(){
             radarButtons.select('.radarText')
             .style("opacity", 0);
@@ -616,6 +811,8 @@ function radarButtons() {
             if (d3.select(this).attr("opacity") != buttonPressedAlpha) { 
                 d3.select(this).attr("opacity", buttonDefaultAlpha)};
         })
+
+
         .attr("opacity", function(d,i) { //setting inital opactiy when radarChart is activated
             if ((i==0) && (predictionMode == true)) {return buttonPressedAlpha;}
 
@@ -623,6 +820,7 @@ function radarButtons() {
 
             else {return buttonDefaultAlpha;}
         });
+
 
 
     radarButtons.append("text")
@@ -638,6 +836,8 @@ function radarButtons() {
         .style("opacity", 0)
         .text(function(d, i ) {return radarButtonsText[i];});
 
+
+
     radarButtons.append("svg:image")
         .attr("x", function(d,i) {return 0 + (bWidth + bSpace)*i;})
         .attr("y", y0)
@@ -648,8 +848,11 @@ function radarButtons() {
 
 
 
+
 function scatterButtons() {
     var buttonBoxWidth = 460;
+
+
 
     var svg = d3.select(element[0])
         .select('.rightDiv')
@@ -660,8 +863,12 @@ function scatterButtons() {
         .attr('viewBox', '0, 0, ' + buttonBoxWidth + ', ' + buttonBoxHeight)
         .attr("overflow", "visible");
 
+
+
         var allButtons = svg.append("g")
             .attr("id", "allButtons") 
+
+
 
         var buttonGroups = allButtons.selectAll("g.button")
             .data(metrics)
@@ -681,10 +888,13 @@ function scatterButtons() {
                 .style("opacity", 1);
 
 
+
+
                 if (d3.select(this).attr("opacity") != buttonPressedAlpha) { 
                     d3.select(this)
                         .attr("opacity", buttonHoverAlpha)};
                     })
+
             .on("mouseout", function(d, i){
                 d3.select("#scatterButtonText" + i)
                     .style("opacity", 0);
@@ -693,12 +903,14 @@ function scatterButtons() {
                     d3.select(this)
                         .attr("opacity", buttonDefaultAlpha)};
                     })
+
              .attr("opacity", function(d,i) { //setting inital opactiy when page is loaded
                     if (i == "0") {
                             return buttonPressedAlpha;
                             }
                     else {return buttonDefaultAlpha}             
                     });
+
 
     buttonGroups.append("svg:image")
             .attr("x", function(d,i) {return x0 + (bWidth + bSpace)*i;})
@@ -707,12 +919,16 @@ function scatterButtons() {
             .attr('height', bHeight)
             .attr("xlink:href", function(i) {return "imgs/" + i + ".png";});
 
+
+
     buttonGroups.append("text")
         .attr("class","scatterButtonTexts")
         .attr("id", function(d, i) {return "scatterButtonText" + i;})
         .attr("x",function(d,i) {
             return 25 + (bWidth + bSpace)*i - scatterButtonText[i].length*3.5;
                 })
+
+
         .attr("y", bHeight + 8)
         .attr("text-anchor", "bottom")
         .attr("dominant-baseline", "central")
@@ -725,8 +941,12 @@ function scatterButtons() {
 
 function drawScatter() {
 
+
+
     d3.select(element[0]).select('.rightDiv').selectAll("svg").remove();
     modeButtons();
+
+
 
     var scatterSvg = d3.select(element[0]).select('.rightDiv')
         .append("svg")
@@ -734,15 +954,21 @@ function drawScatter() {
         .attr('viewBox', '0, 0, ' + scatterWidth + ', ' + scatterHeight)
         .attr('overflow', 'visible');
 
+
+
     var line = d3.svg.line()
         .x(function(d) { 
             return xScale(d.gdp.x);})
         .y(function(d) { 
             return yScale(d.gdp.y);});
 
+
+
     scatterSvg.append("path")
         .attr("d", line(trendData))
         .attr("class", "trend");
+
+
 
     scatterSvg.selectAll("circle")
         .data(countries)
@@ -787,9 +1013,13 @@ function drawScatter() {
             }
         }); 
 
+
+
     function handleMouseOver(d, i) {
         scatterSvg.selectAll("#scatterTextId")
             .remove();
+
+
 
         d3.select(this)
             .style("fill-opacity", .5)
@@ -800,6 +1030,8 @@ function drawScatter() {
 
         labelScatterCountry(d.id, countryFontHoverOpacity);
     };
+
+
 
     function handleMouseOut() {
         if (d3.select(this).attr("id") ==  "s" + selectedId) {
@@ -812,6 +1044,8 @@ function drawScatter() {
                 .style("stroke-opacity", 1)
                 .attr("r", scatterPointSize);    
         }
+
+
         else {
             d3.select(this)
                 .transition()
@@ -822,21 +1056,30 @@ function drawScatter() {
                 .style("stroke-opacity", .1)
                 .attr("r", scatterPointSize);
         }
+
                 scatterSvg.selectAll("#scatterTextId")
             .remove();
 
         labelScatterCountry(selectedId, countryFontOpacity);
     };
 
+
+
     var xAxis = d3.svg.axis()
         .scale(xScale)
         .orient("bottom")
         .ticks(5);
 
+
+
+
     var yAxis = d3.svg.axis()
         .scale(yScale)
         .orient("left")
         .ticks(5);
+
+
+
 
     scatterSvg.append("g")
         .attr("class", "scatterAxis")
@@ -844,17 +1087,25 @@ function drawScatter() {
         .attr("transform", "translate(" +0 + "," + (scatterHeight - scatterMargin.bottom ) + ")")
         .call(xAxis);
 
+
+
+
     scatterSvg.append("g")
         .attr("class", "scatterAxis")
         .attr("stroke-width", 2)
         .attr("transform", "translate(" + scatterMargin.left + "," + 0 + ")")
         .call(yAxis);
 
+
+
+
     scatterSvg.append("text")
         .attr("text-anchor", "middle")
         .attr("transform", "translate(" + (scatterMargin.left*.3) + ","+ (scatterHeight/2) + ")rotate(-90)")  
         .text("Happiness")
         .attr("class", "scatterAxis");
+
+
 
     scatterSvg.append("text")
         .attr("text-anchor", "middle")
@@ -864,7 +1115,9 @@ function drawScatter() {
         .attr('id', function(d) {return "xAxisLabel";});
 
 
-//    console.log(selectedId + ' s id scatter');
+
+
+
 
 
     if (selectedId != 0) {
@@ -877,6 +1130,8 @@ function drawScatter() {
         .attr("cy", d3.select("#s" + selectedId).attr("cy"))
         .attr("r", scatterPointSize*2);
 
+
+
         d3.select(element[0]).select('.rightDiv')
             .select("#s" + selectedId)
             .style("stroke", colorScale(scope.data[selectedId].happy))
@@ -885,8 +1140,11 @@ function drawScatter() {
             .style("stroke-opacity", 1);
     }
 
+
     scatterButtons();
 }
+
+
 
 
 function labelScatterCountry(x, op) {
@@ -907,6 +1165,8 @@ function labelScatterCountry(x, op) {
 };
 
 
+
+
     var width = 500,
         height = 550,
         projection,
@@ -919,6 +1179,8 @@ function labelScatterCountry(x, op) {
         countrySet,
         zoom;
 
+
+
     projection = d3.geo.orthographic()
         .translate([width / 2, height / 2])
         .scale(250)
@@ -926,22 +1188,34 @@ function labelScatterCountry(x, op) {
         .precision(0.1)
         .rotate([0, -30]);
             
+
+
     path = d3.geo.path()
         .projection(projection);
             
+
+
     svg = d3.select(element[0]).select('.leftDiv')
         .append('svg')
         .attr('width', "98%")
         .attr('viewBox', '0, 0, ' + width + ', ' + height);
 
+
+
     features = svg.append('g');
             
+
+
     features.append('path')
         .datum({type: 'Sphere'})
         .attr('class', 'background')
         .attr('d', path);
             
+
+
     graticule = d3.geo.graticule();
+
+
 
     features.append('path')
         .datum(graticule)
@@ -949,8 +1223,11 @@ function labelScatterCountry(x, op) {
         .attr('d', path);
 
 
-    // bug in firefox if user double clicks https://github.com/d3/d3/issues/2771 
-    // unable to fix, don't doubleclick on the globe in firefox!            
+
+
+
+        
+
     zoom = d3.geo.zoom()
         .projection(projection)
         .scaleExtent([projection.scale() * 1, projection.scale() * 4])
@@ -961,6 +1238,8 @@ function labelScatterCountry(x, op) {
                 }
             });
 
+
+
     d3.json(mapJson, function(error, world) {
         countries = topojson.feature(world, world.objects.countries).features;
         countrySet = drawFeatureSet('country', countries);
@@ -968,12 +1247,17 @@ function labelScatterCountry(x, op) {
         drawScatter();
         });
 
+
+
 function drawFeatureSet(className, featureSet) {
+
 
     //color bar
     var defs = svg.append("defs");
     var linearGradient = defs.append("linearGradient")
         .attr("id", "linear-gradient");
+
+
 
     linearGradient.selectAll("stop") 
         .data( colorScale.range() )                  
@@ -981,10 +1265,14 @@ function drawFeatureSet(className, featureSet) {
         .attr("offset", function(d,i) { return i/(colorScale.range().length-1); })
         .attr("stop-color", function(d) { return d; });
 
+
+
     var colorBarX = 15;
     var colorBarY = 520;
     var colorBarWidth = 20;
     var colorBarHeight = 150;
+
+
 
     svg.append("rect")
         .attr("width", colorBarHeight)
@@ -992,18 +1280,26 @@ function drawFeatureSet(className, featureSet) {
         .attr("transform", "translate(" + colorBarWidth + "," + colorBarY +")rotate(0)") 
         .style("fill", "url(#linear-gradient)");
 
+
+
     svg.append("text")
-        //.attr("text-anchor", "middle")
         .attr("transform", "translate(" + (colorBarX + 5) +  "," + (colorBarY + 16) +")") 
         .attr("class", "colorAxis")
         .text("Happiness")
         .attr("font-size", globeFontSize);
 
+
+
+
     function handleMouseOver(d, i) {
          if (scope.data[d.id]) {
  
+
+
             if (modeStatus == 0) {
                 d3.select(this).attr("opacity",  .9);         
+
+
 
             svg.append("text")
             .attr({id: "globeTextId",  // Create an id for text so we can select it later for removing on mouseout
@@ -1011,18 +1307,25 @@ function drawFeatureSet(className, featureSet) {
                 x: function() {return 5; },
                 y: function() {return 20; }
                 })
+
             .text(function() {
                 if (scope.data[d.id]) {
                     return scope.data[d.id].country;
                     }
                 })
+
             .attr("font-size", countryFontSize)
             .attr("opacity", countryFontHoverOpacity);
             
+
+
             d3.select('.rightDiv .scatterSvg').selectAll("#scatterTextId")
             .remove();
 
+
+
             labelScatterCountry(d.id, countryFontHoverOpacity);
+
 
                 d3.select(element[0]).select('.rightDiv')
                     .select("#s" + d.id)
@@ -1034,14 +1337,19 @@ function drawFeatureSet(className, featureSet) {
                     .attr("r", scatterPointSize * 2);
                 }
 
+
+
             if (modeStatus == 1) {
                 pushRadarData(0, selectedRadarIds)
                 prepareRadarData(d.id)
+
 
                 radarChart(radarData, radarCountryId, radarChartOptions);
             }
         }
     };
+
+
 
     function handleMouseOut(d) {
         d3.select(this).attr("opacity",  1.0); 
@@ -1049,16 +1357,24 @@ function drawFeatureSet(className, featureSet) {
             .remove();
           
             
+
+
         d3.select('.rightDiv .scatterSvg').selectAll("#scatterTextId")
             .remove();
 
+
+
             labelScatterCountry(selectedId, countryFontOpacity);
+
+
 
         if (modeStatus == 1) {
             pushRadarData(0, selectedRadarIds)
             prepareRadarData(0)
             radarChart(radarData, radarCountryId, radarChartOptions);
             }
+
+
 
 
         if (d.id != selectedId) {
@@ -1072,6 +1388,8 @@ function drawFeatureSet(className, featureSet) {
                 .attr("r", scatterPointSize);
         }
 
+
+
         if (d.id == selectedId) {
             d3.select(element[0]).select('.rightDiv')
                 .select("#s" + d.id)
@@ -1083,6 +1401,8 @@ function drawFeatureSet(className, featureSet) {
         }
     };
 
+
+
     var set  = features.selectAll('.' + className)
         .data(featureSet)
         .enter()
@@ -1091,10 +1411,14 @@ function drawFeatureSet(className, featureSet) {
         .attr('data-name', function(d) {return d.properties.name;})
         .attr('data-id', function(d) {return d.id;});
                 
+
+
     set.append('path')
         .attr('class', 'land')
         .attr('d', path);
                 
+
+
     set.append('path')
         .attr('class', 'overlay')
         .attr('d', path)
@@ -1106,6 +1430,8 @@ function drawFeatureSet(className, featureSet) {
                 return "fill: " +  'grey';
             }
         })
+
+
         .on("mouseover", handleMouseOver)
         .on("mouseout", handleMouseOut)
         .on('click', function(d) {
@@ -1122,16 +1448,23 @@ function drawFeatureSet(className, featureSet) {
             }
         }); 
     
+
     return set;
 }
+
+
 
 function updateScatter(c, cx, i) {
     // update the scatter plot's points and axis after a button selector is clicked
     var scatterSvg = d3.select(element[0]).select('.rightDiv .scatterSvg');
 
+
+
     if (selectedId != 0) {
         scatterSvg.selectAll(".featuredPoint")
         .remove();
+
+
 
     var selectedIdX = function() {
                 switch(i) {
@@ -1149,6 +1482,8 @@ function updateScatter(c, cx, i) {
                     return xScale((selectedId != 0 ? scope.data[selectedId].trust : 0));
                     }};
     }
+
+
 
     scatterSvg.selectAll("circle")
         .transition()
@@ -1170,6 +1505,9 @@ function updateScatter(c, cx, i) {
                     }
                 })
 
+
+
+
     if (selectedId != 0) {
     scatterSvg.append("circle")
         .attr('class', "featuredPoint")
@@ -1180,12 +1518,16 @@ function updateScatter(c, cx, i) {
         .attr("cy", d3.select("#s" + selectedId).attr("cy"))
         .attr("r", scatterPointSize*2);
 
+
+
     scatterSvg.select(".featuredPoint")
         .transition()
         .duration(1050)
         .attr("cx", selectedIdX)
         .attr("cy", d3.select("#s" + selectedId).attr("cy"))
     }
+
+
 
     var line = d3.svg.line()
         .x(function(d) { 
@@ -1204,6 +1546,8 @@ function updateScatter(c, cx, i) {
                     return xScale(d.trust.x);
                 } 
             })
+
+
         .y(function(d) { 
             switch(i){
                 case 0:
@@ -1221,16 +1565,24 @@ function updateScatter(c, cx, i) {
                 }
             });
 
+
+
     scatterSvg.select("path")
         .transition()
         .duration(1000)
         .attr("d", line(trendData))
 
+
+
     var get_xLabel = function() { return scatterButtonText[i] };
             
+
+
     scatterSvg.select("#xAxisLabel")
         .text(get_xLabel());
     }
+
+
 
  
 function updateInfo(x) {
@@ -1239,13 +1591,19 @@ function updateInfo(x) {
     if (modeStatus == 2) {
     var countryName = (scope.data[x.id].country) ? scope.data[x.id].country : 'Unknown';
 
+
+
     d3.select('.rightDiv .infoTextDiv')
         .selectAll("p")
         .remove();
 
+
+
     d3.select('.rightDiv .infoTextDiv')
         .select('svg')
         .remove();
+
+
 
     d3.select('.rightDiv .infoTextDiv')
         .append('svg')
@@ -1259,40 +1617,56 @@ function updateInfo(x) {
         .attr("stroke-width", ".4")
         .attr("stroke","black");
 
+
+
     var newText = ''
+
+
 
     if (scope.data[x.id].rank <= 39) {
         newText += countryName + " has a happiness of " + (scope.data[x.id].happy).toFixed(2) + " and is in the top quartile of happy countries.";
     }
+
     if (scope.data[x.id].rank <= 78 && scope.data[x.id].rank > 39) {
         newText += countryName + " has a happiness of " + (scope.data[x.id].happy).toFixed(2) + " and is in the upper middle quartile of most happy countries.";
-    }  
+    } 
+
     if (scope.data[x.id].rank <= 117 && scope.data[x.id].rank > 78) {
         newText += countryName + " has a happiness of " + (scope.data[x.id].happy).toFixed(2) + " and is in the bottom middle of happy countries.";
-    }  
+    } 
+
     if (scope.data[x.id].rank > 117) {
         newText += countryName + " has a happiness of " + (scope.data[x.id].happy).toFixed(2) + " and is in the bottom quartile of happy countries.";
     }
 
+
     if (scope.data[x.id].happy - scope.data[x.id].pred >= .04) { //the mean absolute error is ~.2 (non normalized), and .037 normalized 
         newText += " It has a happiness that is greater than the prediction (" + (scope.data[x.id].pred).toFixed(2) + ") given all the measures here.";
     }
+
     else if (scope.data[x.id].happy - scope.data[x.id].pred <= -.04) { 
         newText +=" It has a happiness that is less than the prediction (" + (scope.data[x.id].pred).toFixed(2) + ") given all the measures here.";
-    }  
+    } 
+
     else {
         newText +=" It has a happiness that is about equal to the prediction (" + (scope.data[x.id].pred).toFixed(2) + ") given all the measures here.";
     }  
+
 
     d3.select('.rightDiv .infoTextDiv')
         .append("p")
         .text( function (d) { return newText;});
     }
 
+
+
     if (modeStatus == 0) {
         d3.select('.rightDiv .scatterSvg') 
             .selectAll(".featuredPoint")
             .remove();
+
+
+
 
         d3.select('.rightDiv .scatterSvg') 
             .selectAll("circle")
@@ -1303,14 +1677,18 @@ function updateInfo(x) {
             .duration(2000)
             .attr("r", scatterPointSize);
  
+
+
+
         d3.select('.rightDiv .scatterSvg')
             .select("#s" + x.id)
-            //.moveToFront()
             .style("stroke", colorScale(scope.data[x.id].happy))
             .style("fill", colorScale(scope.data[x.id].happy))
             .style("fill-opacity", selectedFillOpacity)
             .style("stroke-opacity", 1)
             .attr("r", scatterPointSize * 2);
+
+
 
         d3.select('.rightDiv .scatterSvg') 
             .append("circle")
@@ -1324,11 +1702,15 @@ function updateInfo(x) {
     }
 }
 
+
+
 function rotateToFocusOn(x) {        
     var coords = d3.geo.centroid(x);
     coords[0] = -coords[0];
     coords[1] = -coords[1];
               
+
+
     d3.transition()
         .duration(1000)
         .tween('rotate', function() { 
@@ -1341,6 +1723,10 @@ function rotateToFocusOn(x) {
     .transition();
 }
 
+
 }});
+
+
+
 
 app.run();
