@@ -21,8 +21,10 @@ var buttonHoverAlpha = "0.8";
 var buttonPressedAlpha = "1.0";
 
 
+
 var buttonBoxHeight = 68;
 var showRadarMultiple = false;
+
 
 
 
@@ -47,6 +49,7 @@ var selectedRadarIds = [];
 var radarCountryId = [];
 var radarColor = [];
 var radarData = [];            
+
 
 
 
@@ -106,10 +109,12 @@ var yScale = d3.scale.linear()
     .range([scatterHeight - scatterMargin.bottom, scatterMargin.top]);
 
 
+    
 
 var selectedId = 0;
 var metrics = ['gdp', 'health', 'family', 'freedom', 'generosity', 'trust'];
 var scatterButtonText = ['economic production', 'life expectancy', 'social support', 'freedom', 'generosity', 'absence of corruption'];
+
 
 
 
