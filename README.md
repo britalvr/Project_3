@@ -7,7 +7,7 @@ Group Project #3 for Data Analytics Bootcamp
 
 ### Project Goal
 * Determining how happiness compares across countries.
-* Visit [World Happiness](LINK COMING SOON) Project.
+* Visit [World Happiness](https://britalvr.github.io/Project_3/) Project.
 
 ### Data Source
 * [World Happiness Report](https://www.kaggle.com/unsdsn/world-happiness)

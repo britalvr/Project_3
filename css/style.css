@@ -1,0 +1,346 @@
+:root {
+  --main-bg-color: #fcf5eb; /*#F4F4F9;*/
+  --best-color: #3288bd;
+  --main-color: #40434E;
+  --off-color: #1C6E8C;
+  --globe-water-color: #F0F0E0; /*#F4F4F9;*/
+  --globe-grid-color: #40434E;
+  --country-outline-color: #40434E;
+  --scatter-trendline-color: #40434E;
+  --border-status: none;
+  --main-font:'Spectral', serif;
+}
+
+html{
+  padding:0;
+  margin: 0;
+  height:100%;
+}
+
+body {
+    padding-left:20px;
+    padding-right:20px;
+    margin: 0;
+    height:100%;
+    min-height: 100%;
+    width: 100%;
+    font-family: 'Spectral', serif;
+    font-size: 1em;
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box;   
+    box-sizing: border-box;
+}
+
+/* .banner {
+    background-image: url("star-field.png");
+    min-height: 750px;
+    margin-top: 40px;
+} */
+
+div.wrapper {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+    max-width: 1280px;
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
+    outline-style: var(--border-status);
+    outline-color: orange;
+    box-shadow: 0 0 15px 25px var(--main-bg-color);
+    overflow: visible;
+}
+
+
+a:link {
+    text-decoration: none;
+    color: var(--off-color);
+}
+
+a:visited {
+    text-decoration: none;
+        color: var(--off-color);
+}
+
+h1 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+    letter-spacing: 5px;
+    font-family: 'Spectral', serif;
+    font-size: 2.5em;
+    /*color: var(--best-color);*/
+    line-height: 100%;
+}
+
+h2 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: 'Spectral', serif;
+    font-size: 1.6em;
+    /*color: var(--best-color);*/
+}
+
+h3 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: 'Spectral', serif;
+    font-size: 1.5em;
+    /* color: var(--best-color); */
+}
+
+
+p {
+    font-family: 'Spectral', serif;
+    font-size: 1.0em;
+    color: var(--main-color);
+    margin-top: 0px;
+}
+
+.legend {
+    font-family: var(--main-font);
+    fill: var(--main-color);
+    font-size: 12px !important;
+    font-weight: 300;
+    fill: #242424;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+    cursor: default;
+}
+            
+.tooltip {
+    font-family: var(--main-font);
+    /*fill: #333333;*/
+    font-size: 14px;
+    font-weight: 300;
+    /*fill: #242424;*/
+    text-align: center;
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+    cursor: default;
+    overflow: visible;
+}
+
+.axis text {
+    font-family: var(--main-font);
+    font-size: 12px;
+    color: var(--main-color);
+}
+
+
+
+div.infoTextDiv {
+    clear: both;
+    font-size: 1.0em;
+    height: 100%;
+    background-color: var(--main-bg-color);
+    outline-style: var(--border-status);
+    outline-color: yellow;
+    color: var(--main-color);
+}
+
+div.topRow {
+    margin-left:0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    /*width: 100%;*/
+    height: 80px;
+    clear:both;
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
+    outline-style: var(--border-status);
+    outline-color: red;
+}
+
+
+div.bottomRow {
+    margin-top: 0px;
+    width: 100%;
+    /*height: 50px;*/
+    clear:both;
+    outline-style: var(--border-status);
+    outline-color: red;
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
+}
+
+
+div.leftTopRow {
+    line-height: 90%;
+    width:50%;
+    float:left;
+    height: 60px;
+    outline-style: var(--border-status);
+    outline-color: pink;
+}
+
+div.rightTopRow {
+    width:50%;
+    float:right;
+    height: 60px;
+    outline-style: var(--border-status);
+    outline-color: grey;
+    line-height: 90%;
+}
+
+
+/* for small screens */
+@media all and (max-width: 890px), (orientation: portrait) {
+div.leftDiv {
+    width:100%;
+    outline-style: var(--border-status);
+    outline-color: blue;
+    overflow:visible;
+    position:relative;
+}
+div.rightDiv {
+    width:100%;
+    outline-style: var(--border-status);
+    outline-color: grey;
+    overflow:visible;
+}
+}
+
+/* for big screens */
+@media all and (min-width: 800px), (orientation: landscape) {
+div.rightDiv {
+    /*max-width:0px;*/
+    /*max-width:1680px;*/
+    width:50%;
+    float: left;
+    /*: 100%;*/
+    background-color: var(--main-bg-color);
+    outline-style: var(--border-status);
+    outline-color: green;
+    overflow:visible;
+}
+div.leftDiv {
+    width: 50%;
+    float: left;
+    background-color: var(--main-bg-color);
+    outline-style: var(--border-status);
+    outline-color: cyan;
+    overflow:visible;
+    position:relative;
+}
+}
+
+.radarButtons {
+    margin-left: 15px;
+
+}
+
+.scatterButtons {
+    margin-left: 25px;
+
+}
+
+.modeSelectors {
+    margin-top: 5px;
+    margin-left: 15px;
+}
+
+
+path {
+    fill: none;
+    stroke: var(--main-color);
+}
+
+.axis line {
+    fill: none;
+    stroke: var(--main-color);
+    shape-rendering: auto;
+    color: var(--main-color);
+}
+
+.colorAxis line{
+    stroke: var(--main-color);
+}
+
+.scatterAxis line{
+    stroke: var(--main-color);
+}
+
+.scatterAxis path{
+    stroke: var(--main-color);
+}
+
+.scatterAxis {
+    color: var(--main-color);
+    fill: var(--main-color);
+}  
+
+
+.background {
+    fill: var(--globe-water-color);
+    stroke-width: .8px;
+    stroke: none;
+}
+
+.graticule {
+    stroke: var(--globe-grid-color);
+    stroke-width: .5px;
+}
+
+.country {
+    cursor: pointer;
+}
+
+.country .land {
+    stroke: var(--country-outline-color);
+    stroke-width: .5px;
+}
+
+.trend {
+    opacity: .6;
+    stroke: var(--scatter-trendline-color);
+    stroke-width:10px;
+    stroke-linecap: round;
+}
+
+#l1 img {
+    width: 40px;
+    height: 40px;
+    margin-left: 40px;
+    align-self: center;
+ }
+
+
+#l1 img:hover {
+    width: 50px;
+    height: 50px;
+    margin-left: 35px;
+    margin-top: -5px;
+    align-self: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+  
+  /* Clear floats after image containers */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+
+
+
+footer.footer{
+    /* background-color:black; */
+    color:#40434E;
+    padding: 20px 150px;
+    text-align: center;
+}

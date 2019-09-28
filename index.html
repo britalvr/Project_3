@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html >
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An interactive visual exploration of the state of global 
+happiness including six factors – economic production, social support, life expectancy, freedom, 
+absence of corruption, and generosity  – that strongly contribute to making life evaluations higher.">
+<meta name="keywords" content="happy, world happiness, data, data science, data visualization, 
+economic production, social support, life expectancy, freedom, absence of corruption, generosity ">
+
+
+
+<title>World Happiness</title> 
+
+<link rel="shortcut icon" href="imgs/happy.ico" type="image/ico">
+
+
+
+
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Spectral" rel="stylesheet"> 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js'></script>
+<script src='https://www.workshape.io/js/geo/d3.geo.zoom.js'></script>
+
+
+</head>
+<body>
+
+	<script src="js/index.js"></script>
+
+<div class="wrapper">
+
+<div ng-app="myapp">
+    <div ng-controller="ctrl1">
+    	<scoped data="data">
+    	</scoped>
+    </div>
+</div>
+
+
+<script src='happyController.js'></script>
+
+
+<div class="bottomRow">
+
+	<hr />
+	<br>
+	<h2>Globe and Scatter Plot</h2>
+	<p>
+	This globe shows the happiness of countries in the world using Gallup World Poll data. The scatter plot shows 
+	the happiness score compared to one of six measured factors – economic production, social support, 
+	life expectancy, freedom, absence of corruption, and generosity. The globes linear gradient color bar shows
+	the happiness of each country according to a linear gradient color scheme with red being the least happiness to
+	blue being the overall happiest. Both charts interact with each other. Click or hover on a country and the 
+	country happiness data will show on the scatter plot.
+	</p>
+	
+	<hr />
+
+	<br>
+
+	<h2>Inspiration</h2>
+
+	<ul>
+		<li>What countries or regions rank the highest in overall happiness and each of the six factors 
+			contributing to happiness?</li>
+		<li>How did country ranks or scores change between the 2015 and 2016 as well as the 2016 and 2017 reports?</li>
+		<li>Did any country experience a significant increase or decrease in happiness?</li>
+	</ul>
+
+	<br>
+
+	<h2>Data</h2>
+	<p>Link to Kaggle website data used - <a href="https://www.kaggle.com/unsdsn/world-happiness">KAGGLE</a></p>
+
+	<p>Links to all csv data - <a href="https://github.com/britalvr/Project_3/blob/master/csv/happy_2015.csv">CSV 2015  </a>
+		<a href="https://github.com/britalvr/Project_3/blob/master/csv/happy_2016.csv">CSV 2016  </a>
+		<a href="https://github.com/britalvr/Project_3/blob/master/csv/happy_2017.csv">CSV 2017  </a></p>
+
+
+	<br>
+
+	<h2>Context</h2>
+	<br>
+	<p>
+	The World Happiness Report is a landmark survey of the state of global happiness. 
+	The first report was published in 2012, the second in 2013, the third in 2015, and the fourth in the 2016 Update. 
+	The World Happiness 2017, which ranks 155 countries by their happiness levels, was released at the United Nations 
+	at an event celebrating International Day of Happiness on March 20th. The report continues to gain global recognition 
+	as governments, organizations and civil society increasingly use happiness indicators to inform their policy-making decisions. 
+	Leading experts across fields – economics, psychology, survey analysis, national statistics, health, public policy and 
+	more – describe how measurements of well-being can be used effectively to assess the progress of nations. The reports 
+	review the state of happiness in the world today and show how the new science of happiness explains personal and national 
+	variations in happiness.
+	</p>
+
+	<br>
+	
+	<h2>Content</h2>
+	<p>
+	The happiness scores and rankings use data from the Gallup World Poll. 
+	The scores are based on answers to the main life evaluation question asked in the poll. 
+	This question, known as the Cantril ladder, asks respondents to think of a ladder with the best possible 
+	life for them being a 10 and the worst possible life being a 0 and to rate their own current lives on that scale. 
+	The scores are from nationally representative samples for the years 2013-2016 and use the Gallup weights to make the 
+	estimates representative. The columns following the happiness score estimate the extent to which each of six 
+	factors – economic production, social support, life expectancy, freedom, absence of corruption, and 
+	generosity – contribute to making life evaluations higher in each country than they are in Dystopia, 
+	a hypothetical country that has values equal to the world’s lowest national averages for each of the six factors. 
+	They have no impact on the total score reported for each country, but they do explain why some countries rank higher 
+	than others.
+	</p>
+	
+
+	<!-- <br>
+	<h2>Machine Learning</h2>
+	<p>DESCRIBE PROCESS HERE</p>
+	<br>
+	<div class="row">
+		<div class="column">
+		  <img src="img_snow.jpg" alt="jpg1" style="width:100%">
+		  <p>DESCRIBE CHART HERE
+		  	</p>
+		</div>
+		<div class="column">
+		  <img src="img_forest.jpg" alt="jpg2" style="width:100%">
+		  <p>DESCRIBE CHART HERE
+			</p>
+		</div>
+		<div class="column">
+		  <img src="img_mountains.jpg" alt="jpg3" style="width:100%">
+		  <p>DESCRIBE CHART HERE
+			</p>
+		</div>
+	  </div>
+	
+ -->
+
+
+	<br>	
+	<h2>More Interactive Charts</h2>
+	<br>
+	<br>
+	<div class="row">
+		<div class="column">
+		  <!-- <iframe width="600" height="400" src="https://app.powerbi.com/view?r=eyJrIjoiMTIzYTVlZWMtYjNhYy00ZWJjLTk2ZDYtYTFhM2Y5NDMyOTIwIiwidCI6IjQwOTQzMjY3LTM3ZTYtNDYyYy1hOTJlLWZhODcxM2MzNDlkZCIsImMiOjF9" frameborder="0" allowFullScreen="true"></iframe> -->
+		  <!-- <img src="img_snow.jpg" alt="jpg1" style="width:100%"> -->
+		  <p>DESCRIBE CHART HERE
+		  	</p>
+		</div>
+
+
+	  </div>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<hr />
+<div style="text-align:center;">
+	<div id="share-buttons">
+	<div id="l1"><a href="https://github.com/britalvr/Project_3"><img src="imgs/github.png" alt="github"></a></div>
+	</div>
+</div>
+
+<footer class="footer">
+		<p class="text text-center">
+			<small>© Copyright Brittany Alvaro - Austin Crowder - Sean Connelly 2019</small>
+<footer class="footer">
+		<p class="text text-center">
+			<small>KU© Data Analytics and Visualization Boot-Camp</small>
+		</p>
+		</div>
+	  </footer>
+
+<br>
+
+<br>
+
+
+
+
+</div>
+</body>
+</html>
