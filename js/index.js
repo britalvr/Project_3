@@ -1171,6 +1171,7 @@ function labelScatterCountry(x, op) {
 
 
 
+//Creating the globe
 
     var width = 500,
         height = 550,
@@ -1252,6 +1253,8 @@ function labelScatterCountry(x, op) {
         drawScatter();
         });
 
+
+//Creating the gradient happiness color bar
 
 
 function drawFeatureSet(className, featureSet) {
