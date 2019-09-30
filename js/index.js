@@ -1238,7 +1238,7 @@ function labelScatterCountry(x, op) {
         .projection(projection)
         .scaleExtent([projection.scale() * 1, projection.scale() * 4])
         .on('zoom.redraw', function(){
-            if ((d3.event.sourceEvent  != null)) {// && (d3.event.sourceEvent  == "[object WheelEvent]")) {
+            if ((d3.event.sourceEvent  != null)) {
                 d3.event.sourceEvent.preventDefault();
                 svg.selectAll('path').attr('d',path);
                 }
