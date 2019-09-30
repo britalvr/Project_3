@@ -1,6 +1,6 @@
 # Project_3
 Group Project #3 for Data Analytics Bootcamp
-
+We created this Web dashboard using HTML with CSS, Bootstrap, D3.js Charts, Python with pandas and Matplotlib
 
 ### Group Members
 >Brittany Alvaro - Austin Crowder - Sean Connelly
