@@ -1,6 +1,8 @@
 # Project_3
 Group Project #3 for Data Analytics Bootcamp
-###Tools
+
+
+### Tools
 We created this Web dashboard using HTML with CSS, Bootstrap, D3.js Charts, Python with pandas and Matplotlib
 
 ### Group Members
