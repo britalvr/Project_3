@@ -71,7 +71,6 @@ h1 {
     letter-spacing: 5px;
     font-family: 'Spectral', serif;
     font-size: 2.5em;
-    /*color: var(--best-color);*/
     line-height: 100%;
 }
 
@@ -80,7 +79,6 @@ h2 {
     margin-bottom: 0px;
     font-family: 'Spectral', serif;
     font-size: 1.6em;
-    /*color: var(--best-color);*/
 }
 
 h3 {
@@ -89,7 +87,6 @@ h3 {
     margin-bottom: 0px;
     font-family: 'Spectral', serif;
     font-size: 1.5em;
-    /* color: var(--best-color); */
 }
 
 
@@ -113,10 +110,8 @@ p {
             
 .tooltip {
     font-family: var(--main-font);
-    /*fill: #333333;*/
     font-size: 14px;
     font-weight: 300;
-    /*fill: #242424;*/
     text-align: center;
     text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
     cursor: default;
@@ -258,6 +253,10 @@ path {
 .colorAxis line{
     stroke: var(--main-color);
 }
+
+/* .colorAxis text {
+    content: "☹️", "🙁", "😐", "🙂", 😃", "🤩";
+} */
 
 .scatterAxis line{
     stroke: var(--main-color);

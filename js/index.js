@@ -1282,19 +1282,20 @@ function drawFeatureSet(className, featureSet) {
 
 
 
-    svg.append("rect")
-        .attr("width", colorBarHeight)
-        .attr("height", colorBarWidth)
-        .attr("transform", "translate(" + colorBarWidth + "," + colorBarY +")rotate(0)") 
-        .style("fill", "url(#linear-gradient)");
+//     svg.append("rect")
+//         .attr("width", colorBarHeight)
+//         .attr("height", colorBarWidth)
+//         .attr("transform", "translate(" + colorBarWidth + "," + colorBarY +")rotate(0)") 
+//         .style("fill", "url(#linear-gradient)");
 
 
 
-    svg.append("text")
-        .attr("transform", "translate(" + (colorBarX + 5) +  "," + (colorBarY + 16) +")") 
-        .attr("class", "colorAxis")
-        .text("Happiness")
-        .attr("font-size", globeFontSize);
+//     svg.append("text")
+//         .attr("transform", "translate(" + (colorBarX + 5) +  "," + (colorBarY + 16) +")") 
+//         .attr("class", "colorAxis")
+//         .text("Happiness")
+//         // .text("☹️", "🙁", "😐", "🙂", "😃", "🤩")
+//         .attr("font-size", globeFontSize);
 
 
 
