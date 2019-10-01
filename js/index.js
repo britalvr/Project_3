@@ -76,6 +76,7 @@ var radarChartOptions = {
 
 
 //scatter plot scale
+
 var mapDomainStart = 0.0;
 var mapDomainEnd = 1.0;
 
@@ -275,6 +276,7 @@ function radarChart(radarData, radarCountryId, options) {
 
 
     //If the supplied maxValue is smaller than the actual one, replace by the max in the data
+
     var maxValue = Math.max(cfg.maxValue, d3.max(radarData, function(i){return d3.max(i.map(function(o){return o.value;}))}));
         
 
@@ -289,15 +291,9 @@ function radarChart(radarData, radarCountryId, options) {
 
 
 
-//     //Scale for the radius
-//     var rScale = d3.scale.linear()
-//         .range([0, radius])
-//         .domain([0, maxValue]);
-
-
-
 
     //Initiate the radar chart SVG
+
     var radarSvg = d3.select('.rightDiv').append("svg")
         .attr("class", "radarSvg")
         .attr('viewBox', '0, 0, ' + scatterWidth + ', ' + scatterHeight);
@@ -305,7 +301,8 @@ function radarChart(radarData, radarCountryId, options) {
 
 
 
-    //Append a g element        
+    //Append a g element 
+
     var g = radarSvg.append("g")
             .attr("transform", "translate(" + (cfg.w/2 + cfg.margin.left) + "," + (cfg.h/2 + cfg.margin.top) + ")");
     
@@ -313,6 +310,7 @@ function radarChart(radarData, radarCountryId, options) {
 
 
     //Filter for the outside glow
+
     var filter = g.append('defs').append('filter').attr('id','glow'),
         feGaussianBlur = filter.append('feGaussianBlur').attr('stdDeviation','2.5').attr('result','coloredBlur'),
         feMerge = filter.append('feMerge'),
@@ -323,29 +321,30 @@ function radarChart(radarData, radarCountryId, options) {
 
 
     //Wrapper for the grid & axes
+
     var axisGrid = g.append("g").attr("class", "axisWrapper");
     
 
 
 
     //Draw the background circles
+
     axisGrid.selectAll(".levels")
        .data(d3.range(1,(cfg.levels+1)).reverse())
        .enter()
-        //      .transition().duration(radarDuration)
-        .append("circle")
-        //.transition().duration(radarDuration)
-        .attr("class", "gridCircle")
-        .attr("r", function(d, i){return radius/cfg.levels*d;})
-        .style("fill", "#CDCDCD")
-        .style("stroke", "#CDCDCD")
-        .style("fill-opacity", cfg.opacityCircles)
-        .style("filter" , "url(#glow)");
+       .append("circle")
+       .attr("class", "gridCircle")
+       .attr("r", function(d, i){return radius/cfg.levels*d;})
+       .style("fill", "#CDCDCD")
+       .style("stroke", "#CDCDCD")
+       .style("fill-opacity", cfg.opacityCircles)
+       .style("filter" , "url(#glow)");
 
 
 
 
     //Text indicating at what % each level is
+
     axisGrid.selectAll(".axisLabel")
        .data(d3.range(1,(cfg.levels+1)).reverse())
        .enter().append("text")
@@ -360,28 +359,10 @@ function radarChart(radarData, radarCountryId, options) {
 
 
 
-//     //Create the straight lines radiating outward from the center
-//     var axis = axisGrid.selectAll(".axis")
-//         .data(allAxis)
-//         .enter()
-//         .append("g")
-//         .attr("class", "axis");
-//     //Append the lines
-//     axis.append("line")
-//         .attr("x1", 0)
-//         .attr("y1", 0)
-//         .attr("x2",
-//          function(d, i){return rScale(maxValue*1.1) * Math.cos(angleSlice*i - Math.PI/2); })
-//         .attr("y2", function(d, i){return rScale(maxValue*1.1) * Math.sin(angleSlice*i - Math.PI/2); })
-//         .attr("class", "line")
-//         .style("stroke", "white")
-//         .style("stroke-width", "2px");
-
-
-
 
 
     //Append the labels at each axis
+
     axis.append("text")
         .attr("class", "legend")
         .style("font-size", "11px")
@@ -399,11 +380,10 @@ function radarChart(radarData, radarCountryId, options) {
 
 
     //The radial line function
+
     var radarLine = d3.svg.line.radial()
-        .interpolate("linear-closed")
-                     //   .transition().duration(radarDuration)
+        .interpolate("linear-closed")        
         .radius(function(d) { return rScale(d.value); })
-          //            .transition().duration(radarDuration)
         .angle(function(d,i) {  return i*angleSlice; });
         
 
@@ -422,7 +402,8 @@ function radarChart(radarData, radarCountryId, options) {
 
 
 
-    //Append the backgrounds    
+    //Append the backgrounds 
+
     blobWrapper.append("path")
         .attr("class", "radarArea")
         .attr("d", function(d,i) { return radarLine(d); })
@@ -457,6 +438,7 @@ function radarChart(radarData, radarCountryId, options) {
 
 
     //Create the outlines   
+
     blobWrapper.append("path")
         .attr("class", "radarStroke")
         .attr("d", function(d,i) { return radarLine(d); })
@@ -470,11 +452,11 @@ function radarChart(radarData, radarCountryId, options) {
 
 
     //Append the circles
+
     blobWrapper.selectAll(".radarCircle")
         .data(function(d,i) { return d; })
         .enter().append("circle")
         .style("fill", function(d,i,j) { return radarColor[j]; })
-        //.transition().duration(radarDuration)
         .attr("class", "radarCircle")
         .attr("r", cfg.dotRadius)
         .attr("cx", function(d,i){  return rScale(d.value) * Math.cos(angleSlice*i - Math.PI/2); })
@@ -485,6 +467,7 @@ function radarChart(radarData, radarCountryId, options) {
 
 
     //Wrapper for the invisible circles on top
+
     var blobCircleWrapper = g.selectAll(".radarCircleWrapper")
         .data(radarData)
         .enter().append("g")
@@ -494,6 +477,7 @@ function radarChart(radarData, radarCountryId, options) {
 
 
     //Append a set of invisible circles on top for the mouseover pop-up
+
     blobCircleWrapper.selectAll(".radarInvisibleCircle")
         .data(function(d,i) { return d; })
         .enter().append("circle")
@@ -532,6 +516,7 @@ function radarChart(radarData, radarCountryId, options) {
 
 
     //Set up the small tooltip for when you hover over a circle
+
     var tooltip = g.append("text")
         .attr("class", "tooltip")
         .style("opacity", 0);
@@ -540,7 +525,9 @@ function radarChart(radarData, radarCountryId, options) {
 
 
     //Taken from http://bl.ocks.org/mbostock/7555321
-    //Wraps SVG text    
+    //Wraps SVG text 
+    
+    
     function wrap(text, width) {
         text.each(function() {
         var text = d3.select(this),
@@ -590,7 +577,7 @@ function modeButtons() {
         .attr("height", buttonBoxHeight)
         .attr('viewBox', '0, 0, ' + buttonBoxWidth + ', ' + buttonBoxHeight)
         .attr("overflow", "visible");
-        //.style("align-content", "center");
+        
 
 
 
@@ -659,10 +646,6 @@ function modeButtons() {
                 d3.select('.rightDiv')
                     .append('div')
                     .attr('class', 'infoTextDiv')
-                // .text("This globe shows the happiness of countries in the world using "+
-                //     "Gallup World Poll data. The scatter plot shows the happiness score compared " +
-                //     "to one of six measured factors – economic production, social support, life expectancy, " +
-                //     "freedom, absence of corruption, and generosity. The radar chart shows all six of the measured factors simultaneously for the selected country. In addition by selectecing the thinking head icon a prediction of the country's happiness based off all of these factors is shown; for most countries the predicted happiness is extremely close to the measured value which indicates that happiness is strongly determined by these indicators.");
             }
 
 
@@ -961,19 +944,6 @@ function drawScatter() {
         .attr('viewBox', '0, 0, ' + scatterWidth + ', ' + scatterHeight)
         .attr('overflow', 'visible');
 
-
-
-//     var line = d3.svg.line()
-//         .x(function(d) { 
-//             return xScale(d.gdp.x);})
-//         .y(function(d) { 
-//             return yScale(d.gdp.y);});
-
-
-
-//     scatterSvg.append("path")
-//         .attr("d", line(trendData))
-//         .attr("class", "trend");
 
 
 
@@ -1284,24 +1254,6 @@ function drawFeatureSet(className, featureSet) {
 
 
 
-//     svg.append("rect")
-//         .attr("width", colorBarHeight)
-//         .attr("height", colorBarWidth)
-//         .attr("transform", "translate(" + colorBarWidth + "," + colorBarY +")rotate(0)") 
-//         .style("fill", "url(#linear-gradient)");
-
-
-
-//     svg.append("text")
-//         .attr("transform", "translate(" + (colorBarX + 5) +  "," + (colorBarY + 16) +")") 
-//         .attr("class", "colorAxis")
-//         .text("Happiness")
-//         // .text("☹️", "🙁", "😐", "🙂", "😃", "🤩")
-//         .attr("font-size", globeFontSize);
-
-
-
-
     function handleMouseOver(d, i) {
          if (scope.data[d.id]) {
  
@@ -1340,7 +1292,6 @@ function drawFeatureSet(className, featureSet) {
 
                 d3.select(element[0]).select('.rightDiv')
                     .select("#s" + d.id)
-                    //.moveToFront()
                     .style("stroke", colorScale(scope.data[d.id].happy))
                     .style("fill", colorScale(scope.data[d.id].happy))
                     .style("fill-opacity", selectedFillOpacity)
@@ -1540,51 +1491,6 @@ function updateScatter(c, cx, i) {
 
 
 
-//     var line = d3.svg.line()
-//         .x(function(d) { 
-//             switch(i){
-//                 case 0:
-//                     return xScale(d.gdp.x);
-//                 case 1:  
-//                     return xScale(d.health.x);
-//                 case 2:  
-//                     return xScale(d.family.x);
-//                 case 3:  
-//                     return xScale(d.freedom.x);
-//                 case 4:  
-//                     return xScale(d.generosity.x);
-//                 case 5:  
-//                     return xScale(d.trust.x);
-//                 } 
-//             })
-
-
-//         .y(function(d) { 
-//             switch(i){
-//                 case 0:
-//                     return yScale(d.gdp.y);
-//                 case 1:  
-//                     return yScale(d.health.y);
-//                 case 2:  
-//                     return yScale(d.family.y);
-//                 case 3:  
-//                     return yScale(d.freedom.y);
-//                 case 4:  
-//                     return yScale(d.generosity.y);
-//                 case 5:  
-//                     return yScale(d.trust.y);
-//                 }
-//             });
-
-
-
-//     scatterSvg.select("path")
-//         .transition()
-//         .duration(1000)
-//         .attr("d", line(trendData))
-
-
-
     var get_xLabel = function() { return scatterButtonText[i] };
             
 
@@ -1620,11 +1526,6 @@ function updateInfo(x) {
         .append('svg')
         .attr("width", "100%")
         .attr("viewBox", "0 0 100 10")
-//         .append("line")
-//         .attr("x1", 15)
-//         .attr("x2", 85)
-//         .attr("y1", 5)
-//         .attr("y2", 5)
         .attr("stroke-width", ".4")
         .attr("stroke","black");
 
