@@ -358,22 +358,22 @@ function radarChart(radarData, radarCountryId, options) {
 
 
 
-    //Create the straight lines radiating outward from the center
-    var axis = axisGrid.selectAll(".axis")
-        .data(allAxis)
-        .enter()
-        .append("g")
-        .attr("class", "axis");
-    //Append the lines
-    axis.append("line")
-        .attr("x1", 0)
-        .attr("y1", 0)
-        .attr("x2",
-         function(d, i){return rScale(maxValue*1.1) * Math.cos(angleSlice*i - Math.PI/2); })
-        .attr("y2", function(d, i){return rScale(maxValue*1.1) * Math.sin(angleSlice*i - Math.PI/2); })
-        .attr("class", "line")
-        .style("stroke", "white")
-        .style("stroke-width", "2px");
+//     //Create the straight lines radiating outward from the center
+//     var axis = axisGrid.selectAll(".axis")
+//         .data(allAxis)
+//         .enter()
+//         .append("g")
+//         .attr("class", "axis");
+//     //Append the lines
+//     axis.append("line")
+//         .attr("x1", 0)
+//         .attr("y1", 0)
+//         .attr("x2",
+//          function(d, i){return rScale(maxValue*1.1) * Math.cos(angleSlice*i - Math.PI/2); })
+//         .attr("y2", function(d, i){return rScale(maxValue*1.1) * Math.sin(angleSlice*i - Math.PI/2); })
+//         .attr("class", "line")
+//         .style("stroke", "white")
+//         .style("stroke-width", "2px");
 
 
 
@@ -961,17 +961,17 @@ function drawScatter() {
 
 
 
-    var line = d3.svg.line()
-        .x(function(d) { 
-            return xScale(d.gdp.x);})
-        .y(function(d) { 
-            return yScale(d.gdp.y);});
+//     var line = d3.svg.line()
+//         .x(function(d) { 
+//             return xScale(d.gdp.x);})
+//         .y(function(d) { 
+//             return yScale(d.gdp.y);});
 
 
 
-    scatterSvg.append("path")
-        .attr("d", line(trendData))
-        .attr("class", "trend");
+//     scatterSvg.append("path")
+//         .attr("d", line(trendData))
+//         .attr("class", "trend");
 
 
 
