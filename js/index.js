@@ -969,9 +969,9 @@ function drawScatter() {
 
 
 
-//     scatterSvg.append("path")
-//         .attr("d", line(trendData))
-//         .attr("class", "trend");
+    scatterSvg.append("path")
+        .attr("d", line(trendData))
+        .attr("class", "trend");
 
 
 
