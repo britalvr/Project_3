@@ -1,4 +1,6 @@
 
+
+
 //styles
 
 
@@ -287,10 +289,10 @@ function radarChart(radarData, radarCountryId, options) {
 
 
 
-    //Scale for the radius
-    var rScale = d3.scale.linear()
-        .range([0, radius])
-        .domain([0, maxValue]);
+//     //Scale for the radius
+//     var rScale = d3.scale.linear()
+//         .range([0, radius])
+//         .domain([0, maxValue]);
 
 
 
@@ -961,17 +963,17 @@ function drawScatter() {
 
 
 
-    var line = d3.svg.line()
-        .x(function(d) { 
-            return xScale(d.gdp.x);})
-        .y(function(d) { 
-            return yScale(d.gdp.y);});
+//     var line = d3.svg.line()
+//         .x(function(d) { 
+//             return xScale(d.gdp.x);})
+//         .y(function(d) { 
+//             return yScale(d.gdp.y);});
 
 
 
-    scatterSvg.append("path")
-        .attr("d", line(trendData))
-        .attr("class", "trend");
+//     scatterSvg.append("path")
+//         .attr("d", line(trendData))
+//         .attr("class", "trend");
 
 
 
@@ -1538,48 +1540,48 @@ function updateScatter(c, cx, i) {
 
 
 
-    var line = d3.svg.line()
-        .x(function(d) { 
-            switch(i){
-                case 0:
-                    return xScale(d.gdp.x);
-                case 1:  
-                    return xScale(d.health.x);
-                case 2:  
-                    return xScale(d.family.x);
-                case 3:  
-                    return xScale(d.freedom.x);
-                case 4:  
-                    return xScale(d.generosity.x);
-                case 5:  
-                    return xScale(d.trust.x);
-                } 
-            })
+//     var line = d3.svg.line()
+//         .x(function(d) { 
+//             switch(i){
+//                 case 0:
+//                     return xScale(d.gdp.x);
+//                 case 1:  
+//                     return xScale(d.health.x);
+//                 case 2:  
+//                     return xScale(d.family.x);
+//                 case 3:  
+//                     return xScale(d.freedom.x);
+//                 case 4:  
+//                     return xScale(d.generosity.x);
+//                 case 5:  
+//                     return xScale(d.trust.x);
+//                 } 
+//             })
 
 
-        .y(function(d) { 
-            switch(i){
-                case 0:
-                    return yScale(d.gdp.y);
-                case 1:  
-                    return yScale(d.health.y);
-                case 2:  
-                    return yScale(d.family.y);
-                case 3:  
-                    return yScale(d.freedom.y);
-                case 4:  
-                    return yScale(d.generosity.y);
-                case 5:  
-                    return yScale(d.trust.y);
-                }
-            });
+//         .y(function(d) { 
+//             switch(i){
+//                 case 0:
+//                     return yScale(d.gdp.y);
+//                 case 1:  
+//                     return yScale(d.health.y);
+//                 case 2:  
+//                     return yScale(d.family.y);
+//                 case 3:  
+//                     return yScale(d.freedom.y);
+//                 case 4:  
+//                     return yScale(d.generosity.y);
+//                 case 5:  
+//                     return yScale(d.trust.y);
+//                 }
+//             });
 
 
 
-    scatterSvg.select("path")
-        .transition()
-        .duration(1000)
-        .attr("d", line(trendData))
+//     scatterSvg.select("path")
+//         .transition()
+//         .duration(1000)
+//         .attr("d", line(trendData))
 
 
 
@@ -1618,11 +1620,11 @@ function updateInfo(x) {
         .append('svg')
         .attr("width", "100%")
         .attr("viewBox", "0 0 100 10")
-        .append("line")
-        .attr("x1", 15)
-        .attr("x2", 85)
-        .attr("y1", 5)
-        .attr("y2", 5)
+//         .append("line")
+//         .attr("x1", 15)
+//         .attr("x2", 85)
+//         .attr("y1", 5)
+//         .attr("y2", 5)
         .attr("stroke-width", ".4")
         .attr("stroke","black");
 
