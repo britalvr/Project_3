@@ -961,11 +961,11 @@ function drawScatter() {
 
 
 
-//     var line = d3.svg.line()
-//         .x(function(d) { 
-//             return xScale(d.gdp.x);})
-//         .y(function(d) { 
-//             return yScale(d.gdp.y);});
+    var line = d3.svg.line()
+        .x(function(d) { 
+            return xScale(d.gdp.x);})
+        .y(function(d) { 
+            return yScale(d.gdp.y);});
 
 
 
