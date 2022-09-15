@@ -1204,9 +1204,9 @@ function labelScatterCountry(x, op) {
 
 
 
-        
+    import d3GeoZoom from 'd3-geo-zoom';     
 
-    zoom = d3.geo.zoom()
+    zoom = d3.geoZoom()
         .projection(projection)
         .scaleExtent([projection.scale() * 1, projection.scale() * 4])
         .on('zoom.redraw', function(){
