@@ -1159,7 +1159,7 @@ function labelScatterCountry(x, op) {
 
 
 
-    projection = d3.geo.orthographic()
+    var projection = d3.geo.orthographic()
         .translate([width / 2, height / 2])
         .scale(250)
         .clipAngle(90)
