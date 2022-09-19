@@ -1168,7 +1168,7 @@ function labelScatterCountry(x, op) {
             
 
 
-    path = d3.geo.path()
+    var path = d3.geo.path()
         .projection(projection);
             
 
@@ -1190,9 +1190,9 @@ function labelScatterCountry(x, op) {
         .attr('d', path);
             
 
- graticule = d3.geo.graticule();
+ var graticule = d3.geo.graticule();
 
-    features.append('path')
+    svg.append('path')
         .datum(graticule)
         .attr('class', 'graticule')
         .attr('d', path);
