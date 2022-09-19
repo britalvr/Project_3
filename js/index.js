@@ -1190,23 +1190,17 @@ function labelScatterCountry(x, op) {
         .attr('d', path);
             
 
-
-    graticule = d3.geo.graticule();
-
-
+ graticule = d3.geo.graticule();
 
     features.append('path')
         .datum(graticule)
         .attr('class', 'graticule')
         .attr('d', path);
+    
 
+ 
 
-
-
-
-    import d3GeoZoom from 'd3-geo-zoom';     
-
-    zoom = d3.geoZoom()
+    zoom = d3.geo.zoom()
         .projection(projection)
         .scaleExtent([projection.scale() * 1, projection.scale() * 4])
         .on('zoom.redraw', function(){
